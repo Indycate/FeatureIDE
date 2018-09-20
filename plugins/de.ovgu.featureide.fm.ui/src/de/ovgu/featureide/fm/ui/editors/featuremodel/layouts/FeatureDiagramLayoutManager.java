@@ -41,7 +41,9 @@ import de.ovgu.featureide.fm.ui.editors.IGraphicalConstraint;
 import de.ovgu.featureide.fm.ui.editors.IGraphicalElement;
 import de.ovgu.featureide.fm.ui.editors.IGraphicalFeature;
 import de.ovgu.featureide.fm.ui.editors.IGraphicalFeatureModel;
+import de.ovgu.featureide.fm.ui.editors.featuremodel.GUIDefaults;
 import de.ovgu.featureide.fm.ui.editors.featuremodel.editparts.LegendEditPart;
+import de.ovgu.featureide.fm.ui.editors.featuremodel.figures.CollapsedDecoration;
 import de.ovgu.featureide.fm.ui.editors.featuremodel.figures.LegendFigure;
 import de.ovgu.featureide.fm.ui.properties.FMPropertyManager;
 
@@ -301,8 +303,21 @@ abstract public class FeatureDiagramLayoutManager {
 		}
 
 		final Rectangle featureModelBounds = getFeatureModelBounds(featureModel.getVisibleFeatures());
+
+		final CollapsedDecoration collapsedDecoration = new CollapsedDecoration(); // ToDo
+
+		// final Rectangle featureModelBounds = getFeatureModelBounds(featureModel.get
+
+		final Rectangle numberLabelPosition = collapsedDecoration.getBounds();	// new
+
+		// final Point test = new Point(50, 0);
+		final Point test2 = new Point(); // new
+		test2.setX(GUIDefaults.COLLAPSED_DECORATOR_X_SPACE + featureModelBounds.getBottomRight().x); // new
+		test2.setY(GUIDefaults.COLLAPSED_DECORATOR_Y_SPACE + featureModelBounds.getBottomRight().y); // new
+
 		final Point min = featureModelBounds.getTopLeft();
-		final Point max = featureModelBounds.getBottomRight();
+		// final Point max = featureModelBounds.getBottomRight();
+		final Point max = test2; // new
 
 		if (editor == null) {
 			return null;

@@ -71,6 +71,8 @@ import de.ovgu.featureide.fm.ui.properties.FMPropertyManager;
  */
 public class ConnectionEditPart extends AbstractConnectionEditPart implements GUIDefaults {
 
+	int counter = 0; // ToDo
+
 	private static final DirectEditPolicy ROLE_DIRECT_EDIT_POLICY = new DirectEditPolicy() {
 
 		@Override
@@ -244,12 +246,16 @@ public class ConnectionEditPart extends AbstractConnectionEditPart implements GU
 		if (graphicalSource == graphicalTarget) {
 			if (graphicalSource.isCollapsed()) {
 				sourceDecoration = new CollapsedDecoration(graphicalTarget);
+				System.out.println("collapsed"); // ToDo
+				counter++;
+				System.out.println(counter)
 			}
 		} else {
 			if (target.getStructure().isAnd()
 				&& (!source.getStructure().isHidden() || FeatureUIHelper.showHiddenFeatures(graphicalTarget.getGraphicalModel()))) {
 				if (!(source.getStructure().isHidden() && !FeatureUIHelper.showHiddenFeatures(graphicalTarget.getGraphicalModel()))) {
 					sourceDecoration = new CircleDecoration(source.getStructure().isMandatory());
+					System.out.println("was anderes"); // ToDo
 				}
 			}
 		}

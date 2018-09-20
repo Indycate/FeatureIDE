@@ -51,19 +51,19 @@ public class HiddenAction extends MultipleSelectionAction {
 		changeHiddenStatus(isEveryFeatureHidden());
 		setChecked(isEveryFeatureHidden());
 	}
-	
+
 	private boolean isEveryFeatureHidden() {
-		for (IFeature tempFeature : featureArray) {
+		for (final IFeature tempFeature : featureArray) {
 			if (!(tempFeature.getStructure().isHidden())) {
 				return false;
 			}
 		}
 		return true;
+
 	}
-	
+
 	private void changeHiddenStatus(boolean allHidden) {
-		final SetFeatureToHiddenOperation op = 
-				new SetFeatureToHiddenOperation(featureModel, allHidden, getSelectedFeatures());
+		final SetFeatureToHiddenOperation op = new SetFeatureToHiddenOperation(featureModel, allHidden, getSelectedFeatures());
 		try {
 			PlatformUI.getWorkbench().getOperationSupport().getOperationHistory().execute(op, null, null);
 		} catch (final ExecutionException e) {
