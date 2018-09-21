@@ -50,16 +50,19 @@ public class CollapsedDecoration extends ConnectionDecoration implements GUIDefa
 
 	public boolean isLegendEntry = false;
 
+	private Dimension dimension = new Dimension(0, 0);
+
 	public CollapsedDecoration(IGraphicalFeature parent) {
 		super();
 		graphicalFeature = parent;
 		setLayoutManager(layout);
 		setBackgroundColor(FMPropertyManager.getDiagramBackgroundColor());
 		setForegroundColor(FMPropertyManager.getFeatureForgroundColor());
+		parent.setDecorationList(this);
 
 		childrenCount.setFont(DEFAULT_FONT);
 		setOpaque(true);
-		setDecoratorText("" + GetAllChildren(parent.getObject().getStructure()));
+		setDecoratorText("" + getAllChildren(parent.getObject().getStructure()));
 		add(childrenCount);
 	}
 
@@ -97,12 +100,21 @@ public class CollapsedDecoration extends ConnectionDecoration implements GUIDefa
 		super.setLocation(p.translate(-(getBounds().width / 2), GUIDefaults.COLLAPSED_DECORATOR_FEATURE_SPACE));
 	}
 
-	public int GetAllChildren(IFeatureStructure parent) {
+	public int getAllChildren(IFeatureStructure parent) {
 		int count = 0;
 		for (final IFeatureStructure iterable_element : parent.getChildren()) {
-			count += 1 + GetAllChildren(iterable_element);
+			count += 1 + getAllChildren(iterable_element);
 		}
 		return count;
+	}
+
+	/*-@Override
+	public Point getLocation() {
+		return location;
+	}*/
+
+	public Dimension getDimension() {
+		return dimension;
 	}
 
 	public void setDecoratorText(String newText) {
@@ -118,6 +130,8 @@ public class CollapsedDecoration extends ConnectionDecoration implements GUIDefa
 			childrenCount.setBounds(
 					new Rectangle(GUIDefaults.COLLAPSED_DECORATOR_X_SPACE, GUIDefaults.COLLAPSED_DECORATOR_Y_SPACE, labelSize.width, labelSize.height));
 
+			dimension = childrenCount.getSize();
+
 			final Rectangle bounds = getBounds();
 			labelSize.width += GUIDefaults.COLLAPSED_DECORATOR_X_SPACE * 2;
 			labelSize.height += GUIDefaults.COLLAPSED_DECORATOR_Y_SPACE * 2;
@@ -128,6 +142,7 @@ public class CollapsedDecoration extends ConnectionDecoration implements GUIDefa
 				bounds.x += (oldSize.width - bounds.width) >> 1;
 			}
 			setBounds(bounds);
+			dimension = childrenCount.getSize();
 		}
 	}
 

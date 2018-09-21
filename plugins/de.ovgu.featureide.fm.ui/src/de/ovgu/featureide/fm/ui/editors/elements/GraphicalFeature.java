@@ -37,6 +37,7 @@ import de.ovgu.featureide.fm.ui.editors.FeatureConnection;
 import de.ovgu.featureide.fm.ui.editors.FeatureUIHelper;
 import de.ovgu.featureide.fm.ui.editors.IGraphicalFeature;
 import de.ovgu.featureide.fm.ui.editors.IGraphicalFeatureModel;
+import de.ovgu.featureide.fm.ui.editors.featuremodel.figures.ConnectionDecoration;
 
 /**
  * Graphical representation of an {@link IFeature} instance.
@@ -61,6 +62,8 @@ public class GraphicalFeature implements IGraphicalFeature {
 	protected Dimension dimension = new Dimension(10, 10);
 
 	private IEventListener uiObject;
+
+	private List<ConnectionDecoration> decoratorlist;
 
 	public GraphicalFeature(IFeature correspondingFeature, IGraphicalFeatureModel graphicalFeatureModel) {
 		this.graphicalFeatureModel = graphicalFeatureModel;
@@ -268,6 +271,28 @@ public class GraphicalFeature implements IGraphicalFeature {
 			}
 		}
 		return Collections.unmodifiableList(features);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see de.ovgu.featureide.fm.ui.editors.IGraphicalFeature#setDecoration(de.ovgu.featureide.fm.ui.editors.featuremodel.figures.ConnectionDecoration)
+	 */
+	@Override
+	public void setDecorationList(ConnectionDecoration decorator) {
+		if (decorator != null) {
+			decoratorlist.add(decorator);
+		}
+		System.out.println("yomama");
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see de.ovgu.featureide.fm.ui.editors.IGraphicalFeature#getConnectionDecoration()
+	 */
+	@Override
+	public List<ConnectionDecoration> getDecoration() {
+
+		return decoratorlist;
 	}
 
 }
